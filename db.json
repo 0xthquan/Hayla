@@ -1,0 +1,9 @@
+{
+  "players": [
+    { "id": 1, "name": "QUAN", "score": -12, "role": "dealer" },
+    { "id": 2, "name": "SON", "score": -44, "role": "dealer" },
+    { "id": 3, "name": "NGUYEN", "score": -12, "role": "dealer" },
+    { "id": 4, "name": "KHOA", "score": -12, "role": "dealer" },
+    { "id": 5, "name": "DUC", "score": -4, "role": "dealer" }
+  ]
+}

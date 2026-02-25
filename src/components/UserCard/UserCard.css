@@ -1,0 +1,67 @@
+
+.active-player-container {
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+    gap: 10px;
+    margin-top: 10px;
+}
+.player-card {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border-width: 1px;
+    justify-content: space-between;
+    background-color: rgb(42, 59, 73);
+}
+.player-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 10px 10px 10px 10px;
+}
+
+.player {
+    display: flex;
+    gap: 5px;
+}
+
+.player-name {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.player-role {
+    font-style: italic;
+    color: rgb(200, 200, 200);
+    display: none;
+    text-transform: lowercase;
+}
+
+.player-score {
+    font-size: 2rem;
+    font-weight: 600;
+    color: chartreuse;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.status-checkbox {
+    margin-right: 10px;
+}
+
+.button-action {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 10px 10px 10px;
+}
+
+.btn-action {
+    flex: 1 1 calc(50% - 5px);
+    box-sizing: border-box;
+    background-color: grey;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 5px 5px 5px;
+}

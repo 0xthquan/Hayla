@@ -1,0 +1,30 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-color: aliceblue;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: rgb(42, 59, 73);
+    margin: 10px 0 10px 0;
+}
+
+.setting-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* session */
+.session-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    flex-wrap: wrap;
+}
