@@ -1,24 +1,15 @@
-import React, { useContext, useRef } from 'react'
-import './GameSettings.css'
-import { UserContext } from '../../contexts/UserContext';
+import React from 'react'
 
+type Props = {}
 
-const GameSettings = ({ closeGameSetting }: { closeGameSetting: () => void }) => {
-    const betAmountRef = useRef<HTMLInputElement>(null);
-    const playerNameRef = useRef<HTMLInputElement>(null);
-    const [user, setUser] = useContext(UserContext)
-
-    const handleAddPlayer = () => {
-        console.log(playerNameRef.current?.value);
-    }
-
-    return (
+const SearchBar = (props: Props) => {
+  return (
         <div>
             <div className='game-setting-background'>
                 <div className='game-setting-container'>
                     <div className='game-setting-header'>
                         <h2>Game Setting</h2>
-                        <button onClick={closeGameSetting}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                        <button><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
                     </div>
                     <div className='bet-amount-container'>
                         <span>Bet Amount (k)</span>
@@ -37,14 +28,14 @@ const GameSettings = ({ closeGameSetting }: { closeGameSetting: () => void }) =>
                     <hr style={{ color: '#334155', marginBottom: '1rem' }} />
                     <div>
                         <span></span>
-                        <form action="" className='add-player' onSubmit={(e) => { e.preventDefault(); handleAddPlayer(); }}>
+                        <form action="" className='add-player'>
                             <input type="text" name="player-name" id="" placeholder='Player Name' ref={playerNameRef} />
                             <button className='btn-add-player'><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
                         </form>
                     </div>
                     {
                         user.map((player) => (
-                            <div className='list-player-container' key={player.id}>
+                            <div className='list-player-container'>
                                 <div className='player-active'>
                                     <span>{player.name}</span>
                                     <button>
@@ -61,4 +52,4 @@ const GameSettings = ({ closeGameSetting }: { closeGameSetting: () => void }) =>
     )
 }
 
-export default GameSettings
+export default SearchBar

@@ -1,41 +1,84 @@
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
-import UserCard from './components/UserCard/UserCard'
+import PlayerCard, { type UserAction } from './components/UserCard/UserCard'
 import GameSettings from './components/GameSettings/GameSettings';
 import { UserContext, type User } from './contexts/UserContext';
-import { id } from 'zod/locales';
 
 function App() {
   const [isOpenSettings, setIsOpenSettings] = useState(false);
   const [user, setUser] = useState<User[]>([]);
-
+  const [sortBy, setSortBy] = useState<'name' | 'scoreDesc' | 'scoreAsc' | ''>('');
+  const [filterBy, setFilterBy] = useState<'winner' | 'loser' | ''>('')
   const handleWinAll = useCallback(() => {
     console.log("Take all")
   }, [])
+
+  const userRef = useRef<User[]>([])
 
   const addPlayer = useCallback(() => {
   }, [])
 
   const sortedPlayers = useMemo(() => {
-    return [...user].sort((a, b) => b.score - a.score);
-  }, [user])
+    const players = [...user];
+
+    switch (sortBy) {
+      case 'name':
+        return players.sort((a, b) => a.name.localeCompare(b.name));
+      case 'scoreAsc':
+        return players.sort((a, b) => a.score - b.score);
+      case 'scoreDesc':
+      default:
+        return players;
+    }
+  }, [user, sortBy])
+
+  const displayedPlayers = useMemo(() => {
+    switch (filterBy) {
+      case 'winner':
+        return sortedPlayers.filter((player) => player.score > 0);
+      case 'loser':
+        return sortedPlayers.filter((player) => player.score < 0);
+      default:
+        return sortedPlayers;
+    }
+  }, [sortedPlayers, filterBy])
+
+  const searchPlayers = (input: string) => {
+    if (input.trim() === "") {
+      setUser(userRef.current)
+    } else {
+      setUser(userRef.current.filter((u) => u.name.includes(input)))
+    }
+  }
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch('https://my-json-server.typicode.com/0xthquan/HALA/players');
-      const data = await response.json();
-      setUser(data);
+      const response = await fetch('https://my-json-server.typicode.com/0xthquan/Hayla/players');
+      const allUser: User[] = await response.json();
+      userRef.current = allUser
+      setUser(allUser);
     };
     fetchUser();
   }, [])
 
+  const handlePlayerClick = (player: User, action: UserAction) => {
+
+  }
+
   return (
     <>
       <UserContext.Provider value={[user, setUser]}>
-        <Navbar onOpenSetting={() => setIsOpenSettings(true)} />
-        {sortedPlayers.map((user) => (
-          <UserCard key={user.id} userCard={user} handleWinAll={handleWinAll} />
+        <Navbar
+          onOpenSetting={() => setIsOpenSettings(true)}
+          onSearch={searchPlayers}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          filterBy={filterBy}
+          onFilterChange={setFilterBy}
+        />
+        {displayedPlayers.map((user) => (
+          <PlayerCard key={user.id} userCard={user} handleWinAll={handleWinAll} />
         ))}
         {isOpenSettings && <GameSettings closeGameSetting={() => setIsOpenSettings(false)} />}
       </UserContext.Provider>
