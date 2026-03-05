@@ -52,6 +52,19 @@ function App() {
     }
   }
 
+  const calculatorScore = (player: User) => {
+    const players: User[] = []
+    displayedPlayers.forEach(element => {
+      if (element.id === player.id) {
+        players.push({...element, score: element.score + 5})
+      } else {
+        players.push({...element, score: element.score - 1})
+      }
+    });
+
+    setUser(players)
+  }
+
   useEffect(() => {
     const fetchUser = async () => {
       const response = await fetch('https://my-json-server.typicode.com/0xthquan/Hayla/players');
@@ -78,7 +91,7 @@ function App() {
           onFilterChange={setFilterBy}
         />
         {displayedPlayers.map((user) => (
-          <PlayerCard key={user.id} userCard={user} handleWinAll={handleWinAll} />
+          <PlayerCard key={user.id} userCard={user} handleWinAll={calculatorScore} />
         ))}
         {isOpenSettings && <GameSettings closeGameSetting={() => setIsOpenSettings(false)} />}
       </UserContext.Provider>

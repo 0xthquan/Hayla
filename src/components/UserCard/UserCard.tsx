@@ -4,30 +4,33 @@ import type { User } from '../../contexts/UserContext';
 
 type Props = {
   userCard: User;
-  handleWinAll: (player: User, action: UserAction) => void;
+  handleWinAll: (player: User) => void;
 }
 
 export type UserAction = 'Win' | 'Lose' | 'Winx2' | 'Losex2' | 'WinAll';
 
-function scoreReducer(player: User, action: UserAction) {
-  console.log(`Player "${player.name}" (id: ${player.id}) clicked: ${action}`)
-  switch (action) {
-    case 'Win':
-      return score + 1;
-    case 'Lose':
-      return score - 1;
-    case 'Winx2':
-      return score + 2;
-    case 'Losex2':
-      return score - 2;
-    case 'WinAll':
-      return score + 10;
-    default:
-      return score;
-  }
-}
+
 
 const PlayerCard = React.memo(({ userCard, handleWinAll }: Props) => {
+  function scoreReducer(player: User, action: UserAction) {
+    console.log(`Player "${player.name}" (id: ${player.id}) clicked: ${action}`)
+    handleWinAll(player)
+    // switch (action) {
+    //   case 'Win':
+    //     return score + 1;
+    //   case 'Lose':
+    //     return score - 1;
+    //   case 'Winx2':
+    //     return score + 2;
+    //   case 'Losex2':
+    //     return score - 2;
+    //   case 'WinAll':
+    //     return score + 10;
+    //   default:
+    //     return score;
+    // }
+  }
+
   console.log("Render")
   const [player, dispatch] = useReducer(scoreReducer, userCard)
 
